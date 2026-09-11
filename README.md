@@ -4,8 +4,8 @@ Install the native Lenso Agent terminal UI, management CLI, and ACP entrypoint:
 
 ```sh
 brew install LioRael/tap/lenso-agent
-lenso-agent-cli auth login
-lenso-agent-cli profiles install coding
+lenso-agent auth login
+lenso-agent profiles install coding
 lenso-agent --profile code
 ```
 
@@ -31,7 +31,7 @@ GitHub token and does not modify upstream release assets or registry packages.
 To prepare an update locally:
 
 ```sh
-python3 scripts/update-agent.py 0.1.10
+python3 scripts/update-agent.py 0.1.11
 brew audit --strict LioRael/tap/lenso-agent
 brew install LioRael/tap/lenso-agent
 brew test LioRael/tap/lenso-agent

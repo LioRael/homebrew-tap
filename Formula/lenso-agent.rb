@@ -11,17 +11,17 @@ class LensoAgent < Formula
     depends_on macos: :sequoia
 
     on_arm do
-      url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.10/lenso-agent-v0.1.10-darwin-aarch64.tar.gz"
-      sha256 "f9389a4d0978e53e22d88777e7bd87521bcf41e3b0ba9377944c10554f504167"
+      url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.11/lenso-agent-v0.1.11-darwin-aarch64.tar.gz"
+      sha256 "f666f1861b7cc36c053aefeffa2fc5f29c2195585b6c5e64457a3f5b51c755ea"
 
       resource "lenso-agent-cli" do
-        url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.10/lenso-agent-cli-v0.1.10-darwin-aarch64.tar.gz"
-        sha256 "70208a05e4716d4cb75b41b8287c77175e39d07af6db8df89281536308e14719"
+        url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.11/lenso-agent-cli-v0.1.11-darwin-aarch64.tar.gz"
+        sha256 "e116ae2a5fbe59fb01b30fc511dd57acfa255298a8324da9552083a79145fc20"
       end
 
       resource "lenso-agent-acp" do
-        url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.10/lenso-agent-acp-v0.1.10-darwin-aarch64.tar.gz"
-        sha256 "c57331d1a7e6bd9d69adadb99eab5d34c05a6cb2fc73cb09b23417439c021078"
+        url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.11/lenso-agent-acp-v0.1.11-darwin-aarch64.tar.gz"
+        sha256 "7c8d35a428f23876c82226cc1cf5fc9e87e0529073dcadb6b2591a67b6569939"
       end
     end
   end
@@ -30,17 +30,17 @@ class LensoAgent < Formula
     depends_on arch: :x86_64
 
     on_intel do
-      url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.10/lenso-agent-v0.1.10-linux-x86_64.tar.gz"
-      sha256 "e807ef8ccf446fd0d1505181d4790be1159af9dd8cf6232b6014d492848f7369"
+      url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.11/lenso-agent-v0.1.11-linux-x86_64.tar.gz"
+      sha256 "ee303ba17b83c79283500e77823f0566951bf6cf035fe4ed00ab8c7919bfb329"
 
       resource "lenso-agent-cli" do
-        url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.10/lenso-agent-cli-v0.1.10-linux-x86_64.tar.gz"
-        sha256 "ba4e13fca3e72af9c49b841c200e443af25335597f6afce9a9b95f46811c0c57"
+        url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.11/lenso-agent-cli-v0.1.11-linux-x86_64.tar.gz"
+        sha256 "eca0c926989610b46f77ecf7842db36192c6866ba1a6f1a26dd844f561563420"
       end
 
       resource "lenso-agent-acp" do
-        url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.10/lenso-agent-acp-v0.1.10-linux-x86_64.tar.gz"
-        sha256 "b155fa6db143e7549855c003c22afe23977b51a5bac7453c59e82f78ed055e7b"
+        url "https://github.com/LioRael/lenso-agent/releases/download/v0.1.11/lenso-agent-acp-v0.1.11-linux-x86_64.tar.gz"
+        sha256 "75e151e3b96f0c188d9d056ef0bc0dbf71d5c36d17e88c9757ca93470491ef32"
       end
     end
   end
@@ -56,7 +56,9 @@ class LensoAgent < Formula
     assert_match version.to_s, shell_output("#{bin}/lenso-agent --version")
     assert_match version.to_s, shell_output("#{bin}/lenso-agent-cli --version")
     assert_match version.to_s, shell_output("#{bin}/lenso-agent-acp --version")
+    assert_match version.to_s, shell_output("#{bin}/lenso-agent acp --version")
+    assert_match "lenso-agent run", shell_output("#{bin}/lenso-agent run --help")
     ENV["LENSO_AGENT_HOME"] = (testpath/"agent").to_s
-    system bin/"lenso-agent-cli", "doctor", "--json"
+    system bin/"lenso-agent", "doctor", "--json"
   end
 end
