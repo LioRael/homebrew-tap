@@ -1,0 +1,31 @@
+name: Test Formula
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  install:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: Homebrew/actions/setup-homebrew@6c8c9b048bbf21805ef86bf25324c09e756ee361
+      - name: Use this checkout as the tap
+        run: |
+          tap="$(brew --repository)/Library/Taps/liorael/homebrew-tap"
+          if [ ! -e "$tap" ]; then
+            mkdir -p "$(dirname "$tap")"
+            ln -s "$GITHUB_WORKSPACE" "$tap"
+          fi
+          test "$(git -C "$tap" rev-parse HEAD)" = "$GITHUB_SHA"
+      - run: brew style LioRael/tap/lenso-agent
+      - run: brew audit --strict LioRael/tap/lenso-agent
+      - run: brew install LioRael/tap/lenso-agent
+      - run: brew test LioRael/tap/lenso-agent
+      - run: brew uninstall lenso-agent
