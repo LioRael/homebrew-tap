@@ -1,5 +1,27 @@
 # Lenso Homebrew tap
 
+## Lenso CLI
+
+```sh
+brew install LioRael/tap/lenso
+lenso --version
+brew update
+brew upgrade LioRael/tap/lenso
+```
+
+Native binaries support Apple Silicon and Intel macOS 13+, and ARM64 and x64
+Linux with glibc 2.35+. No Rust build is required. Homebrew manages upgrades;
+`lenso self update` directs these installations to `brew upgrade`.
+
+The [CLI release workflow](https://github.com/LioRael/lenso-cli/actions/workflows/homebrew.yml)
+automatically pins all four archives to the latest stable release checksums.
+It installs and tests the candidate on all four native platforms before updating
+`Formula/lenso.rb`, using a deploy key restricted to this tap. To retry an update,
+dispatch **Update Homebrew formula** in the CLI repository. Agent updates below
+remain independent.
+
+## Lenso Agent
+
 Install the native Lenso Agent terminal UI, management CLI, and ACP entrypoint:
 
 ```sh
